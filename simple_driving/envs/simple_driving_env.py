@@ -46,6 +46,22 @@ class SimpleDrivingEnv(gym.Env):
         self.render_rot_matrix = None
         self.reset()
         self._envStepCounter = 0
+    def distane_to_goal:
+         carpos, carorn = self._p.getBasePositionAndOrientation(self.car.car)
+          goalpos, goalorn = self._p.getBasePositionAndOrientation(self.goal_object.goal)
+          car_ob = self.getExtendedObservation()
+
+          if self._termination():
+            self.done = True
+            break
+          self._envStepCounter += 1
+
+        # Compute reward as L2 change in distance to goal
+        # dist_to_goal = math.sqrt(((car_ob[0] - self.goal[0]) ** 2 +
+                                  # (car_ob[1] - self.goal[1]) ** 2))
+        dist_to_goal = math.sqrt(((carpos[0] - goalpos[0]) ** 2 +
+                                  (carpos[1] - goalpos[1]) ** 2)
+        return dist_to_goal
 
     def step(self, action):
         # Feed action to the car and get observation of car's state
