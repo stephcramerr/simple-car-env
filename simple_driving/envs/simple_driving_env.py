@@ -198,7 +198,14 @@ class SimpleDrivingEnv(gym.Env):
             return frame
         else:
             return np.array([])
-
+    def getObstacleDistance(self):
+        carpos, carorn = self._p.getBasePositionAndOrientation(self.car.car)
+        obpos, oborn = self._p.getBasePositionAndOrientation(self.obstacle1_object.goal)
+        invCarPos, invCarOrn = self._p.invertTransform(carpos, carorn)
+        obPosInCar, obOrnInCar = self._p.multiplyTransforms(invCarPos, invCarOrn, obpos, oborn)
+        
+        distance = [obPosInCar[0], obPosInCar[1]]                                               
+        return distance                        
     def getExtendedObservation(self):
         # self._observation = []  #self._racecar.getObservation()
         carpos, carorn = self._p.getBasePositionAndOrientation(self.car.car)
