@@ -116,6 +116,8 @@ class SimpleDrivingEnv(gym.Env):
         Plane(self._p)
         self.car = Car(self._p)
         self._envStepCounter = 0
+        self.obstacle = self._p.loadURDF(fileName=simple_driving/resources/simplegoal.urdf,
+                   basePosition=[2, 2, 0])
 
         # Set the goal to a random target
         x = (self.np_random.uniform(5, 9) if self.np_random.integers(2) else
